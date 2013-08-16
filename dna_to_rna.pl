@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 open(FIN, "<", 'rosalind_rna.txt');
 while (<FIN>) {
   my $dna = $_;
