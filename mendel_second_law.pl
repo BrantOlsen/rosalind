@@ -13,9 +13,9 @@ my $total_possible = 1;
     print Dumper(\%children_a);
 # Loop through the generations starting at the second one.
 for (my $i = 0; $i < $k - 1; ++$i) {
-    my $AA = $children_a{'AA'};
-    my $Aa = $children_a{'Aa'};
-    my $aa = $children_a{'aa'};
+    my $AA = $children_a{'AA'}; # 2
+    my $Aa = $children_a{'Aa'}; # 4
+    my $aa = $children_a{'aa'}; # 2
 
     $children_a{'AA'} = $AA * 2 * $num_children + $Aa * $num_children;
     $children_a{'Aa'} = $AA * 2 * $num_children + $Aa * 2 * $num_children;
