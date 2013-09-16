@@ -1,0 +1,47 @@
+use strict;
+use warnings;
+
+my %rna_codon_table = (
+'UUU' => 'F', 'CUU' => 'L', 'AUU' => 'I',
+'GUU' => 'V', 'UUC' => 'F', 'CUC' => 'L',
+'AUC' => 'I', 'GUC' => 'V', 'UUA' => 'L',
+'CUA' => 'L', 'AUA' => 'I', 'GUA' => 'V', 'UUG' => 'L',
+'CCG' => 'P', 'ACG' => 'T', 'GCG' => 'A',
+'UAU' => 'Y', 'CAU' => 'H', 'AAU' => 'N', 'GAU' => 'D',
+'UAC' => 'Y', 'CAC' => 'H', 'AAC' => 'N', 'GAC' => 'D',
+'UAA' => 'Stop', 'CAA' => 'Q', 'AAA' => 'K', 'GAA' => 'E',
+'UAG' => 'Stop', 'CAG' => 'Q', 'AAG' => 'K', 'GAG' => 'E',
+'UGU' => 'C', 'CGU' => 'R', 'AGU' => 'S', 'GGU' => 'G',
+'UGC' => 'C', 'CGC' => 'R', 'AGC' => 'S', 'GGC' => 'G',
+'UGA' => 'Stop', 'CGA' => 'R', 'AGA' => 'R', 'GGA' => 'G',
+'UGG' => 'W', 'CGG' => 'R', 'AGG' => 'R', 'GGG' => 'G',
+'CUG' => 'L', 'AUG' => 'M','GUG' => 'V',
+'UCU' => 'S', 'CCU' => 'P', 'ACU' => 'T', 'GCU' => 'A',
+'UCC' => 'S', 'CCC' => 'P', 'ACC' => 'T', 'GCC' => 'A',
+'UCA' => 'S', 'CCA' => 'P', 'ACA' => 'T', 'GCA' => 'A',
+'UCG' => 'S',
+);
+
+my $modulo = 1000000;
+my $protein_str = "MEPGFPSFNGAWWSVTLMQCSNCSRQLINNPYHASVVATMYRSKCNLCFWTWWADHYRIWAEARPQWSGCDVNWENTRIDKKSDIKQPWWWAQFHHWPECTSGIASCHNETWYSMEDQYGTTQVEKDKLYIHSVNNPFAPWRAHESMDQCHESCCVLMYYDQECPGNNYCAPQGICRWARARPQIEIWYDCLDHMKKCFVCLLRFAISTGFSLKNTSWHVCMSVVVQDMAVNQDFVCGVPPHDDWNCCEQNTVFGLGIMQKKKNTLGAMGMANECENKMGDETYIKRGYRLHPTQNYGHHYTTWPYNAEMYIKNGTLYAMLSHFWSTKLKANIPAFKFHQTSLHCYLLKFCAPHCMQSMTPVWEQNRAMNGNCFDGNDEPDVWTSNMVHIVWAPITPADIQRNTTTLMHYTDYRFDLFAGDEDGWHHKVTRCHCKLNHGYWHNMGQQNKWAIPQNLSINKYMGPDHWVIMGKRQAHVFGFFQCFREMGYWGTPKWYCWYIYKAKLKWTFRAYWLIIAWGSWMQTAWWVVHAPQSTMHYAAPQASNSCENHICIHSTEVDWKTPFAETNEDCMEHEWDHWQASEWIYYVKMKVKQDTQFQNSNWFHYPCYNTMHHYGRETMRKMHMFWWHWWVQSDMRSNNNFVGAREVVMFDEFGETFTTAVAVVLTIGVPSDADFWKAYFLCDYWPFEFVDRLQMFFWPPLCGPRDWGNVASHSRHISIEINWIGFARAGNWYNEDWICVIVQPKVHINGGATTQMECTRCMQELMDAHETSVINGVGGHRNSHQDQTYARTIEFFSKRLFARMDGKAVEATLIRCTHYRQGEYVAYNEKQRCICGDGRAPVMMVMPPYPAEQNFLMHYWWQWAPGTQPGPNLAGGKQTPHQAMKVEKWEIKRDWQPEQDVDSLEKQEQFAVRMHCGMRLLMHHMADNRKCNRTIEMQDDTPSMMTFEFTFYGHDMMMDLTLVQGWFGIRRWSHLFEKWKYWPRLNKLFSILQSHIQAL";
+my @protein = split("", $protein_str);
+$protein[@protein] = "Stop";
+
+my $possible = 1;
+for my $letter (@protein) {
+    $possible = $possible * possible_rna($letter) % $modulo;
+    #print "Letter = " . $letter . "  " . possible_rna($letter) . "\n";
+}
+print $possible . "\n";
+
+sub possible_rna {
+    my ($letter) = @_;
+
+    my $count = 0;
+    for my $rna (keys %rna_codon_table) {
+        if ($rna_codon_table{$rna} eq $letter) {
+            ++$count;
+        }
+    }
+    return $count;
+}
