@@ -3,7 +3,7 @@ use warnings;
 use Bio::DB::GenBank;
 use Bio::DB::Query::GenBank;
 
-my $query = '"Aulacomya"[Organism] AND ("2008/06/24"[PDAT] : "2012/05/20"[PDAT])';
+my $query = '"Vireo"[Organism] AND ("2001/09/26"[PDAT] : "2008/12/20"[PDAT])';
 my $query_obj = Bio::DB::Query::GenBank->new(-db => 'nucleotide',
                                              -query => $query
                                              );
